@@ -33,6 +33,18 @@ app.use(passport.session());
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
 
+// PRODUCTION CONFIG
+if (process.env.NODE_ENV === 'production') {
+  // Serve up production assets (js/css files)
+  app.use(express.static('client/build'));
+
+  // Serve up index.html if route unrecognized
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 app.listen(PORT, () => {
   console.log(`Serving emailer app on port ${PORT}`);
 });
