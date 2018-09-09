@@ -7,6 +7,7 @@ const keys = require('./config/keys');
 
 // DB CONFIG
 require('./models/User');
+require('./models/Survey');
 mongoose.connect(
   keys.mongoURI,
   { useNewUrlParser: true }
@@ -32,6 +33,7 @@ app.use(passport.session());
 // ROUTES
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 // PRODUCTION CONFIG
 if (process.env.NODE_ENV === 'production') {
